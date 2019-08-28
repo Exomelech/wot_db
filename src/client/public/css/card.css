@@ -1,0 +1,85 @@
+.card {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+
+.card__holder {
+    width: 100%;
+    margin: 10px;
+}
+
+.card__item {
+    background: rgb(61, 61, 61);
+    width: 720px;
+    margin: 20px;
+    border-radius: 10px 10px 6px 6px;
+    padding: 10px;
+    font-size: 14px;
+    transition: 1.0s all;
+}
+
+.card__expanded {
+    display: flex;
+    flex-direction: row;
+    transition: 1.0s all;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.card__item:hover .card__expanded {
+    opacity: 1;
+}
+
+.card__minimized {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 31px;
+    padding: 0px 0px 0px 5px;
+    opacity: 1;
+    transition: 1.0s all;
+    overflow: hidden;
+}
+
+.minimized__tier {
+    font-size: 20px;
+}
+
+.card__item:hover .card__minimized {
+    height: 0px;
+    padding: 0px 0px 0px 5px;
+    opacity: 0;
+}
+
+.card__img {
+    background: rgba(100,100,100,0.5);
+    border-radius: 3px;
+    flex: none;
+    width: 160px;
+    height: 100px;
+}
+
+.card__info {
+    margin-left: 5px;
+    background: rgba(100,100,100,0.5);
+    border-radius: 3px;
+    width: 100%;
+    padding: 0px 0px 0px 10px;
+}
+
+table, th, td {
+    border: 1px solid rgb(61, 61, 61);
+    font-size: 12px;
+    padding: 3px;
+}
+
+.card__table {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.card__text {
+    margin: 3px 0 3px 0;
+}
