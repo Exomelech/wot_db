@@ -7,8 +7,12 @@ app.listen(3000);
 app.use(cors());
 
 const path = require('path');
+const colors = require('colors');
 const mysql_api = require('./lib/mysql_api');
 const external_api = require('./lib/db_external_api');
+const fetch = require('node-fetch');
+const Bluebird = require('bluebird');
+fetch.Promise = Bluebird;
 
 //-- Mount virtual fs for index.html --//
 app.use(jsonParser)
@@ -46,6 +50,11 @@ app.post('/tanks', jsonParser, (req, res) => {
     };
 });
 
-app.get('/fetch?', jsonParser, (req, res)=> {
-    console.log( 'Client has requested fetch url!'.green, req.red );
-})
+app.get('/fetch', jsonParser, (req, res)=> {
+    console.log( 'Client has requested fetch url!'.green, req.query.url );
+
+    fetch(req.query.url)
+        .then( data => data.text() )
+        .then( data => res.json( data ) );
+
+});

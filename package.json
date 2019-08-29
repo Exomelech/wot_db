@@ -15,6 +15,7 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "babel-loader": "^8.0.6",
+    "bluebird": "^3.5.5",
     "cors": "^2.8.5",
     "css-loader": "^3.2.0",
     "express": "^4.17.1",
