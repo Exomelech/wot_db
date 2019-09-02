@@ -1,56 +1,55 @@
 import Card from './card' ;
-import { sendJSON } from './functions' ;
+import { request } from './functions' ;
 
 export default (function(){
 
-    function Handler(link, options){
-        Card.clearCards();
-        this.link = link;
-        this.page_no = 1;
-        this.options = options;
-        this.options.page_no = this.page_no;
-        this.newRequest()
-            .then( data => this.parseRequestFirst(data) );
-    };
-
-    Handler.prototype.newRequest = function(){
-        return sendJSON('post', this.link, this.options);
-    };
-    
-    Handler.prototype.parseRequestFirst = function(data){
-        this.count = data.meta.page_total;
-        this.parseRequest(data);
-        this.initScrollCheck();
-    }
-
-    Handler.prototype.updateCards = function(){
-        this.newRequest().then( data => this.parseRequest(data) );
-    };
-
-    Handler.prototype.parseRequest = function(data){
-        this.drawCards(data.data);
-        this.maxY = document.body.offsetHeight - window.innerHeight;
-        this.update_state = true;
-    };
-
-    Handler.prototype.drawCards = function(data){
-        for( let t in data ){
-            new Card(data[t]);
+    //-- Used for generate ajax request and updating cards by scrolling --//
+    class RequestHandler{
+        constructor(link, options){
+            Card.clearCards();
+            this.link = link;
+            this.options = options;
+            this.count = 0;
+            this.init();
         };
-    };
 
-    Handler.prototype.initScrollCheck = function(){
-        window.addEventListener('scroll', e => {
-            let scroll_delta = this.maxY - window.scrollY;
-            if( scroll_delta < 1500 && this.page_no < this.count && this.update_state ){
-                this.page_no++;
-                this.options.page_no = this.page_no;
-                this.update_state = false;
-                this.updateCards();
+        init(){
+            this.newRequest()
+                .then( () => { this.initScrollCheck() });
+        };
+
+        newRequest(){
+            this.update_state = false;
+            return request('post', this.link, this.options)
+                    .then( data => this.parseRequest(data) );
+        };
+        
+        parseRequest(data){
+            this.drawCards(data.data);
+            this.maxY = document.body.offsetHeight - window.innerHeight;
+            this.count += data.data.length;
+            this.total = data.meta.total;
+            this.update_state = true;
+        };
+
+        drawCards(data){
+            for( let t in data ){
+                new Card(data[t]);
             };
-        });
+        };
+
+        initScrollCheck(){
+            window.addEventListener('scroll', e => {
+                let scroll = ( this.maxY - window.scrollY < 1500 );
+                if( scroll && this.count < this.total && this.update_state ){
+                    this.options.page_no++;
+                    this.newRequest();
+                };
+            });
+        };
+    
     };
     
-    return Handler;
+    return RequestHandler;
 
 }());

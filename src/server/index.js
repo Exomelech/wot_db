@@ -49,12 +49,3 @@ app.post('/tanks', jsonParser, (req, res) => {
         res.json(data);
     };
 });
-
-app.get('/fetch', jsonParser, (req, res)=> {
-    console.log( 'Client has requested fetch url!'.green, req.query.url );
-
-    fetch(req.query.url)
-        .then( data => data.text() )
-        .then( data => res.json( data ) );
-
-});

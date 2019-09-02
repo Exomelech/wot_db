@@ -3,21 +3,21 @@ import { arabicToRoman } from './functions';
 
 export default (function(){
 
-    var cards = [];
-    var card_holder = document.querySelector('.card__holder');
-    var crew_string = {
+    let cards = [];
+    const card_holder = document.querySelector('.card__holder');
+    const crew_string = {
         commander: "Командир экипажа",
         gunner: "Наводчик",
         loader: "Заряжающий",
         radioman: "Радист",
         driver: "Механик-водитель"
     };
-    var armor_string = {
+    const armor_string = {
         hull: 'Корпус',
         turret: 'Башня'
     };
-    var nation_string = {};
-    var type_string = {};
+    let nation_string = {};
+    let type_string = {};
 
     class Card {
         
@@ -68,10 +68,10 @@ export default (function(){
         };
         
         addGeneralInfo() {
-            this.card_info.newChild('div', 'Название танка: ' + this.data.name, 'card__text');
-            this.card_info.newChild('div', 'Тип танка: ' + type_string[this.data.type], 'card__text');
-            this.card_info.newChild('div', 'Нация производитель: ' + nation_string[this.data.nation], 'card__text');
-            this.card_info.newChild('div', 'Общая информация: ' + this.data.description, 'card__text');
+            this.card_info.newChild('div', `Название танка: ${this.data.name}`, 'card__text');
+            this.card_info.newChild('div', `Тип танка: ${type_string[this.data.type]}`, 'card__text');
+            this.card_info.newChild('div', `Нация производитель: ${nation_string[this.data.nation]}`, 'card__text');
+            this.card_info.newChild('div', `Общая информация: ${this.data.description}`, 'card__text');
         };
         
         createCrewTable() {

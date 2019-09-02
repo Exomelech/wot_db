@@ -8,13 +8,6 @@ export default (function(){
         return child;
     };
 
-    // var newElement = function(tag, text, classList){
-    //     let elem = document.createElement(tag);
-    //     elem.innerText = text;
-    //     elem.addClass(classList);
-    //     return elem;
-    // };
-
     Element.prototype.addClass = function(classList){
         if( classList!==undefined ){    
             if( Array.isArray(classList) ){

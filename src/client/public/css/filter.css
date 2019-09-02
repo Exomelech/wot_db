@@ -79,10 +79,12 @@
     opacity: 0;
     transition: 0.5s all;
     border-radius: 3px;
+    background-image: url(../icons/icon_cross_white.png);
+    background-size: contain;
 }
 
 .delete__button:hover {
-    background: rgba(61,61,61);
+    background-color: rgba(61,61,61);
     cursor: pointer;
 }
 

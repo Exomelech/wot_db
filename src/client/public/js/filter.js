@@ -1,15 +1,12 @@
-import { createNumerableObj, print, requestJSON } from './functions';
+import { createNumerableObj, request } from './functions';
 import Create from './create';
 import Card from './card';
-import Handler from './request_handler';
-import deleteButtonSrc from '../icons/icon_cross_white.png';
+import RequestHandler from './request_handler';
 
 export default (function(){
 
-    const app_id = 'application_id='+'cd6a5428a070e83104de6020910a5619';
-    var filters = [];
-    var tiers = createNumerableObj(1, 10);
-    var filter_request;
+    const filters = [];
+    const tiers = createNumerableObj(1, 10);
 
     const filter_menu = document.querySelector('.filter__menu');
     
@@ -47,8 +44,7 @@ export default (function(){
         };
 
         drawDelButton(elem, key){
-            let delete_button = elem.newChild('img', '', 'delete__button');
-            delete_button.src = deleteButtonSrc;
+            let delete_button = elem.newChild('div', '', 'delete__button');
             this.delButtonListener(delete_button, elem, key);
         };
 
@@ -67,14 +63,6 @@ export default (function(){
             });
         };
 
-        getFiltersString(){
-            if( this.filter_list.length > 0 ){
-                return '\&'+this.filter_key+'='+this.filter_list.slice().join();
-            }else{
-                return ''
-            };
-        };
-
         generateFilterObj(obj){
             if( this.filter_list.length > 0 ){
                 return obj[this.filter_key] = this.filter_list;
@@ -82,7 +70,7 @@ export default (function(){
         };
 
         static initFilters(){
-            let p = requestJSON('get', 'http://localhost:3000/meta')
+            let p = request('get', '/meta')
             .then( data => data.data );
             
             p.then( data => {
@@ -107,15 +95,15 @@ export default (function(){
         };
         
         static submitFilters(){
-            let requestString = 'http://localhost:3000/tanks';
+            let url = '/tanks';
             let options = {
-                limit: 16
+                limit: 16,
+                page_no: 1
             };
             for( let filter of filters ){
                 filter.generateFilterObj(options);
             };
-            console.log( options );
-            new Handler(requestString, options);
+            new RequestHandler(url, options);
         };
     
     };

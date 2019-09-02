@@ -56,29 +56,17 @@ export function createNumerableObj(min, max){
     return obj;
 };
 
-function request(method, url){
+export function request(method, url, json){
     return new Promise( (res, rej) => {
         let xhr = new XMLHttpRequest();
         xhr.open(method, url, true);
         xhr.addEventListener('load', res);
-        xhr.addEventListener('error', rej)
-        xhr.send();
-    });   
-};
-
-export function requestJSON(method, url){
-    return request(method, url)
-    .then( res => JSON.parse(res.target.response) );
-};
-
-export function sendJSON(method, url, data){
-    return new Promise( (res, rej) => {
-        let xhr = new XMLHttpRequest();
-        xhr.open(method, url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.addEventListener('load', res);
-        xhr.addEventListener('error', rej)
-        xhr.send(JSON.stringify(data));
-    })
-    .then( res => JSON.parse(res.target.response) );
+        xhr.addEventListener('error', rej);
+        if( json ){
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify(json));
+        }else{
+            xhr.send();
+        };
+    }).then( res => JSON.parse(res.target.response) );   
 };
