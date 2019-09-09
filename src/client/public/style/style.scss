@@ -1,0 +1,116 @@
+@font-face {
+  font-family: "Kurale";
+  src: local('Kurale'), url(fonts/kurale_font.ttf);
+}
+
+$background-color: #2a2a32;
+$gradient-color: #545464;
+$items-color: #54546480;
+
+body {
+  margin: 0 auto;
+  background: $background-color;
+  color: #a8a8c8;
+  font-family: "Kurale";
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+}
+
+.header {
+  display: flex;
+  min-height: 100px;
+  margin: 0 auto;
+}
+
+.header__menu {
+  flex: none;
+  width: 200px;
+  align-items: center;
+  display: flex;
+}
+
+.header__content {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}
+
+.header__sub-title {
+  font-size: 15px;
+}
+
+.header__gradient {
+  position: relative;
+  height: 10px;
+  top: 100%;
+  background: linear-gradient(to right, $gradient-color, $background-color)
+}
+
+
+
+.main {
+  margin: 0 auto;
+  display: flex;
+}
+
+.nav {
+  flex: none;
+  width: 190px;
+  padding: 5px;
+}
+
+.nav__title {
+  margin-top: 0px;
+  margin: 0 auto;
+}
+
+
+.nav__list {
+  font-size: 14px;
+  padding-left: 0px;
+}
+
+.nav__item {
+  background: $items-color;
+  padding: 3px;
+  margin: 3px;
+  border-radius: 5px;
+  cursor: pointer;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  list-style-type: none;
+
+  &:hover {
+    box-shadow: 0px 0px 11px #6f909680;
+  }
+}
+
+.main__gradient {
+  width: 10px;
+  flex: none;
+  max-height: 70%;
+  background: linear-gradient(to bottom, $gradient-color, $background-color)
+}
+
+.content {
+  width: 100%;
+  margin-top: 10px;
+  text-align: start;
+}
+
+.content__block {
+  display: inline-block;
+}
+
+.content__elem {
+  background: $items-color;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.input__elem {
+  padding: 0;
+}
